@@ -1146,9 +1146,12 @@ def test_try_statement():
     in_stream = FileWrapper(io.StringIO(
         'void main() { \n'
         '  try {int x = 5;} \n'
+        '  catch { } \n'
         '} \n'
     ))
     p = ASTParser(Lexer(in_stream)).parse()
     assert len(p.fun_defs[0].stmts) == 1
     stmt = p.fun_defs[0].stmts[0]
     assert len(stmt.try_part) == 1
+    stmt = p.fun_defs[0].stmts[0]
+    assert len(stmt.catch_parts) == 1
