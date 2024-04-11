@@ -240,9 +240,14 @@ class IfStmt(Stmt):
         visitor.visit_if_stmt(self)
 
 @dataclass
+class BasicCatch:
+    condition: Expr
+    stmts: List[Stmt]
+
+
+@dataclass
 class TryCatchStmt(Stmt):
     try_part: List[Stmt]
-    catch_parts: List[BasicIf]
+    catch_parts: List[BasicCatch]
     def accept(self, visitor):
         visitor.visit_if_stmt(self)
-
