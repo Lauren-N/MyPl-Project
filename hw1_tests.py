@@ -334,6 +334,21 @@ def test_if_statement_reserved_words():
     assert l.next_token().token_type == TokenType.EOS    
 
 
+def test_try_catch_reserved_words():
+    in_stream = FileWrapper(io.StringIO('try catch'))
+    l = Lexer(in_stream)
+    t = l.next_token()
+    assert t.token_type == TokenType.TRY
+    assert t.lexeme == 'try'
+    assert t.line == 1
+    assert t.column == 1
+    t = l.next_token()
+    assert t.token_type == TokenType.CATCH
+    assert t.lexeme == 'catch'
+    assert t.line == 1
+    assert t.column == 5
+    assert l.next_token().token_type == TokenType.EOS    
+
 def test_loop_statement_reserved_words():
     in_stream = FileWrapper(io.StringIO('while for'))
     l = Lexer(in_stream)

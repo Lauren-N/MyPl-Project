@@ -71,6 +71,9 @@ class Visitor:
     def visit_var_rvalue(self, var_rvalue):
         pass
     
+    def visit_try_catch_stmt(self, try_catch_stmt):
+        pass
+    
 
     
 #----------------------------------------------------------------------
@@ -233,6 +236,13 @@ class IfStmt(Stmt):
     if_part: BasicIf
     else_ifs: List[BasicIf]
     else_stmts: List[Stmt]
+    def accept(self, visitor):
+        visitor.visit_if_stmt(self)
+
+@dataclass
+class TryCatchStmt(Stmt):
+    try_part: List[Stmt]
+    catch_parts: List[BasicIf]
     def accept(self, visitor):
         visitor.visit_if_stmt(self)
 
