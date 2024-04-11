@@ -238,16 +238,10 @@ class IfStmt(Stmt):
     else_stmts: List[Stmt]
     def accept(self, visitor):
         visitor.visit_if_stmt(self)
-
-@dataclass
-class BasicCatch:
-    condition: Expr
-    stmts: List[Stmt]
-
-
+        
 @dataclass
 class TryCatchStmt(Stmt):
     try_part: List[Stmt]
-    catch_parts: List[BasicCatch]
+    catch_parts: List[Stmt]
     def accept(self, visitor):
         visitor.visit_if_stmt(self)

@@ -331,6 +331,11 @@ class ASTParser:
 
     def stmt(self):
         
+        # if is it is a try catch stmt
+        if(self.match(TokenType.TRY)):
+            try_node = self.try_stmt()
+            return try_node
+
         # if it is a while stmt
         if(self.match(TokenType.WHILE)):
             # create local while node to hold return of while_stmt
@@ -673,6 +678,26 @@ class ASTParser:
         else:
             return else_if_list
         
+    def try_stmt(self):
+        try_node = TryCatchStmt(None, None)
+        self.eat(TokenType.TRY, "Expecting Try")
+        self.eat(TokenType.LBRACE, "Expecting {")
+        # list to hold stmt nodes
+        stmt_list = []
+
+            # checking for tokens starting with stmts
+        while(self.match(TokenType.WHILE) or self.match(TokenType.IF) or self.match(TokenType.FOR) or self.match(TokenType.RETURN)
+                or self.match(TokenType.INT_TYPE) or self.match(TokenType.DOUBLE_TYPE) or self.match(TokenType.STRING_TYPE) or self.match(TokenType.BOOL_TYPE) 
+                or self.match(TokenType.SEMICOLON) or self.match(TokenType.ARRAY) or self.match(TokenType.ID) or self.match(TokenType.ASSIGN)):
+                # adding node to list
+                stmt_list.append(self.stmt())
+
+            # setting stmts param to built list
+        try_node.try_part.stmts = stmt_list
+        self.eat(TokenType.RBRACE, "Expecting }")
+
+        
+
     def while_stmt(self):
         # creating node from WhileStmt Class
         while_node = WhileStmt(None, None)

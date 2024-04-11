@@ -1141,3 +1141,14 @@ def test_for_nest_statement():
     assert len(stmt.if_part.stmts) == 0
     assert len(stmt.else_ifs) == 0
     assert len(stmt.else_stmts) == 0
+
+# def test_try_statement():
+#     in_stream = FileWrapper(io.StringIO(
+#         'void main() { \n'
+#         '  try {x = 5;} \n'
+#         '} \n'
+#     ))
+#     p = ASTParser(Lexer(in_stream)).parse()
+#     assert len(p.fun_defs[0].stmts) == 1
+#     stmt = p.fun_defs[0].stmts[0]
+#     assert len(stmt.try_part.stmts) == 1
