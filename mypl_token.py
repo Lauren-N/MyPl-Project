@@ -25,7 +25,7 @@ TokenType = Enum('TokenType', [
     # primitive data types
     'INT_TYPE', 'DOUBLE_TYPE', 'STRING_TYPE', 'BOOL_TYPE', 'VOID_TYPE', 
     # reserved words
-    'STRUCT', 'ARRAY', 'FOR', 'WHILE', 'IF', 'ELSEIF', 'ELSE', 'NEW', 'RETURN', 'TRY', 'CATCH', 'AS'
+    'STRUCT', 'ARRAY', 'FOR', 'WHILE', 'IF', 'ELSEIF', 'ELSE', 'NEW', 'RETURN', 'TRY', 'CATCH', 'AS', 'ZERODIV'
 ])
     
 

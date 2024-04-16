@@ -1149,7 +1149,7 @@ def test_try_statement():
         '    int result = 0; \n'
         '    result = 0 / 10; \n'
         '}             \n'   
-        '  catch { print("ERROR"); } \n'
+        '  catch as ZeroDivError { print("ERROR"); } \n'
         '} \n'
     ))
     p = ASTParser(Lexer(in_stream)).parse()
