@@ -1480,6 +1480,18 @@ def test_good_while():
     ))
     ASTParser(Lexer(in_stream)).parse().accept(SemanticChecker())   
 
+def test_try_catch():
+    in_stream = FileWrapper(io.StringIO(
+        'void main() { \n'
+        '  try {       \n'
+        '    int result = 0; \n'
+        '    result = 0 / 10; \n'
+        '}             \n'   
+        '  catch as ZeroDivError { print("ERROR"); } \n'
+        '} \n'
+    ))
+    ASTParser(Lexer(in_stream)).parse().accept(SemanticChecker())   
+
 
 
 # NEGATIVE
