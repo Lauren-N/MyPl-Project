@@ -239,14 +239,14 @@ class IfStmt(Stmt):
     def accept(self, visitor):
         visitor.visit_if_stmt(self)
 
-@dataclass
-class basic_catch(Stmt):
-    catch_error: Token
-    catch_stmts: List[Stmt]
+# @dataclass
+# class basic_catch(Stmt):
+#     catch_error: Token
+#     catch_stmts: List[Stmt]
         
 @dataclass
 class TryCatchStmt(Stmt):
     try_part: List[Stmt]
-    catch_parts: List[basic_catch]
+    catch_parts: List[Stmt]
     def accept(self, visitor):
         visitor.visit_try_catch_stmt(self)
