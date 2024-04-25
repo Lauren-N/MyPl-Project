@@ -1,0 +1,13 @@
+void main() {
+    try {
+        array int x1 = new int[5];
+        x1[0] = 1;
+        x1[1] = 0;
+
+        int c = x1[1] / x1[0];
+    }
+    catch as ZeroDivError{
+
+        print("ERROR");
+    }
+}

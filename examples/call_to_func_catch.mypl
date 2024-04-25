@@ -1,0 +1,13 @@
+int t (int x, int y){
+    return x / y;
+}
+
+void main () {
+    try {
+        print(t(0,1));
+    }
+
+    catch as ZeroDivError{
+        print("ERROR");
+    }
+}

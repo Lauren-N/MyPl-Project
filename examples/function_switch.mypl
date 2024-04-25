@@ -1,0 +1,18 @@
+
+
+void f (){
+    try {
+        int i = 0;
+        print("DONE");
+    }
+    catch as ZeroDivError{
+        print("ERROR");
+    }
+
+}
+
+
+
+void main () {
+    f();
+}

@@ -1,0 +1,11 @@
+
+void main (){
+    try {
+        int i = 0;
+        int z = i / 1;
+        print("DONE");
+    }
+    catch as ZeroDivError{
+        print("ERROR");
+    }
+}

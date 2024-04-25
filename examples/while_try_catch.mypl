@@ -1,0 +1,13 @@
+void main () {
+
+    try {
+        int i = 0;
+        while (i < 3){
+            i = i + 1;
+        }
+        print("DONE");
+    }
+    catch as ZeroDivError{
+        print("ERROR");
+    }
+}

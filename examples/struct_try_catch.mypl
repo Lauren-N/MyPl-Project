@@ -1,0 +1,16 @@
+struct T {
+    int x;
+    int y;
+}
+
+void main() {
+    try {
+        T t = new T(0, 1);
+        int v = t.x;
+        int z = t.y;
+        int p = v / z;
+    }
+    catch as ZeroDivError{
+        print("ERROR");
+    }
+}
