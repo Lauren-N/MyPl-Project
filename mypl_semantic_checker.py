@@ -18,7 +18,7 @@ BUILT_INS = ['print', 'input', 'itos', 'itod', 'dtos', 'dtoi', 'stoi', 'stod',
              'length', 'get']
 CONDITIONAL_NON_BOOL_RHS_LHS = ['<', '>', '<=', '>=', '==', '!=']
 CONDITIONAL_BOOL_RHS_LHS = ['<', '>', '<=', '>=']
-OPERATORS_NO_PLUS = ['-', '*', '/']
+OPERATORS_NO_PLUS = ['-', '*']
 COMPAIRSON_OPERATORS = ['and', 'or']
 
 class SemanticChecker(Visitor):
@@ -740,6 +740,16 @@ class SemanticChecker(Visitor):
                     self.curr_type = DataType(False, Token(TokenType.STRING_TYPE, 'string', rhs_type.type_name.line, rhs_type.type_name.column))
 
                 elif lhs_type.type_name.lexeme == 'double' and rhs_type.type_name.lexeme == 'double':
+                    self.curr_type = DataType(False, Token(TokenType.DOUBLE_TYPE, 'double', rhs_type.type_name.line, rhs_type.type_name.column))
+
+                elif lhs_type.type_name.lexeme == 'int' and rhs_type.type_name.lexeme == 'int':
+                    self.curr_type = DataType(False, Token(TokenType.INT_TYPE, 'int', rhs_type.type_name.line, rhs_type.type_name.column))
+                else:
+                    self.error("Incorrect datatype for operator", expr.op)
+
+            if expr.op.lexeme == '/':
+
+                if lhs_type.type_name.lexeme == 'double' and rhs_type.type_name.lexeme == 'double':
                     self.curr_type = DataType(False, Token(TokenType.DOUBLE_TYPE, 'double', rhs_type.type_name.line, rhs_type.type_name.column))
 
                 elif lhs_type.type_name.lexeme == 'int' and rhs_type.type_name.lexeme == 'int':
