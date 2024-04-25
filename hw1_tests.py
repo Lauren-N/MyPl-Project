@@ -349,6 +349,21 @@ def test_try_catch_reserved_words():
     assert t.column == 5
     assert l.next_token().token_type == TokenType.EOS    
 
+def test_try_catch_more_reserved_words():
+    in_stream = FileWrapper(io.StringIO('as ZeroDivError'))
+    l = Lexer(in_stream)
+    t = l.next_token()
+    assert t.token_type == TokenType.AS
+    assert t.lexeme == 'as'
+    assert t.line == 1
+    assert t.column == 1
+    t = l.next_token()
+    assert t.token_type == TokenType.ZERODIV
+    assert t.lexeme == 'ZeroDivError'
+    assert t.line == 1
+    assert t.column == 4
+    assert l.next_token().token_type == TokenType.EOS    
+
 def test_loop_statement_reserved_words():
     in_stream = FileWrapper(io.StringIO('while for'))
     l = Lexer(in_stream)

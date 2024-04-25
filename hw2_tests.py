@@ -416,6 +416,39 @@ def test_if_complex():
     ))
     p = ASTParser(Lexer(in_stream))
     p.parse()
+
+def test_catch_with_for_type():
+    in_stream = FileWrapper(io.StringIO(
+        'void main() { \n'
+        '  try {       \n'
+        '    int i = 3; \n'
+        '    for (int i = 0; i < 5; i = i + 1) { \n'
+        '    }'
+        '    result = 0 / 10; \n'
+        '   }             \n'   
+        '  catch as ZeroDivError { print("ERROR"); } \n'
+        '} \n'
+
+    ))
+    p = ASTParser(Lexer(in_stream))
+    p.parse()
+
+def test_catch_with_while_type():
+    in_stream = FileWrapper(io.StringIO(
+        'void main() { \n'
+        '  try {       \n'
+        '    int i = 0; \n'
+        '    int x = 1;'
+        '    while(x < 3) { \n'
+        '       x = x / 1;'
+        '    }'
+        '   }             \n'   
+        '  catch as ZeroDivError { print("ERROR"); } \n'
+        '} \n'
+
+    ))
+    p = ASTParser(Lexer(in_stream))
+    p.parse()
     
 #------------------------------------------------------------
 # Negative Test Cases
@@ -879,3 +912,26 @@ def test_else_elif_with_no_if():
     with pytest.raises(MyPLError) as e:
         p.parse()
     assert str(e.value).startswith('Parser Error')
+
+def test_else_try_with_no_catch():
+    in_stream = FileWrapper(io.StringIO('void f() { try {}}'))
+    p = ASTParser(Lexer(in_stream))
+    with pytest.raises(MyPLError) as e:
+        p.parse()
+    assert str(e.value).startswith('Parser Error')
+
+def test_else_catch_with_no_try():
+    in_stream = FileWrapper(io.StringIO('void f() { catch as ZeroDivError {}}'))
+    p = ASTParser(Lexer(in_stream))
+    with pytest.raises(MyPLError) as e:
+        p.parse()
+    assert str(e.value).startswith('Parser Error')
+
+
+def test_else_catch_with_no_error_type():
+    in_stream = FileWrapper(io.StringIO('void f() { try {} catch {}}'))
+    p = ASTParser(Lexer(in_stream))
+    with pytest.raises(MyPLError) as e:
+        p.parse()
+    assert str(e.value).startswith('Parser Error')
+

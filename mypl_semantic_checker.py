@@ -376,10 +376,11 @@ class SemanticChecker(Visitor):
 
     def visit_try_catch(self, try_stmt):
         self.symbol_table.push_environment()
-
+        try_stmt.try_part.accept(self)
         self.symbol_table.push_environment()
         for stmt in try_stmt.try_part.stmts:
             stmt.accept(self)
+            print(stmt)
         self.symbol_table.pop_environment()
 
         self.symbol_table.push_environment()
