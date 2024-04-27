@@ -1498,8 +1498,6 @@ def test_involved_try_catch():
 
 # NEGATIVE
 
-
-
 def test_bad_return_type():
     in_stream = FileWrapper(io.StringIO(
         'double g() {return 10;} \n'

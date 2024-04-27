@@ -1147,13 +1147,13 @@ def test_try_statement():
         'void main() { \n'
         '  try {       \n'
         '    int result = 0; \n'
-        '}             \n'   
+        '  }             \n'   
         '  catch { print("ERROR"); } \n'
         '} \n'
     ))
     p = ASTParser(Lexer(in_stream)).parse()
     assert len(p.fun_defs[0].stmts) == 1
     stmt = p.fun_defs[0].stmts[0]
-    assert len(stmt.try_part) == 2
+    assert len(stmt.try_part) == 1
     stmt = p.fun_defs[0].stmts[0]
-    assert len(stmt.catch_parts) == 2
+    assert len(stmt.catch_parts) == 1

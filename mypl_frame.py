@@ -148,6 +148,18 @@ def DUP():
 def NOP():
     return VMInstr(OpCode.NOP)
 
+def TRY_START():
+    return VMInstr(OpCode.TRY_START)
+
+def TRY_END():
+    return VMInstr(OpCode.TRY_END)
+
+def CATCH_START():
+    return VMInstr(OpCode.CATCH_START)
+
+def CATCH_END():
+    return VMInstr(OpCode.CATCH_END)
+
 
 
     

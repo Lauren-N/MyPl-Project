@@ -685,14 +685,15 @@ class ASTParser:
         # list to hold stmt nodes
         stmt_list = []
 
-            # checking for tokens starting with stmts
+        # checking for tokens starting with stmts
         while(self.match(TokenType.WHILE) or self.match(TokenType.IF) or self.match(TokenType.FOR) or self.match(TokenType.RETURN)
                 or self.match(TokenType.INT_TYPE) or self.match(TokenType.DOUBLE_TYPE) or self.match(TokenType.STRING_TYPE) or self.match(TokenType.BOOL_TYPE) 
                 or self.match(TokenType.SEMICOLON) or self.match(TokenType.ARRAY) or self.match(TokenType.ID) or self.match(TokenType.ASSIGN) or self.match(TokenType.TRY)):
                 # adding node to list
-                stmt_list.append(self.stmt())
+                stmt_node = self.stmt()
+                stmt_list.append(stmt_node)
 
-            # setting stmts param to built list
+        # setting stmts param to built list
         try_node.try_part = stmt_list
         self.eat(TokenType.RBRACE, "Expecting }")
 
@@ -700,17 +701,21 @@ class ASTParser:
 
         self.eat(TokenType.LBRACE, "Expecting {")
         
+        stmt_list = []
         # checking for tokens starting with stmts
         while(self.match(TokenType.WHILE) or self.match(TokenType.IF) or self.match(TokenType.FOR) or self.match(TokenType.RETURN)
                 or self.match(TokenType.INT_TYPE) or self.match(TokenType.DOUBLE_TYPE) or self.match(TokenType.STRING_TYPE) or self.match(TokenType.BOOL_TYPE) 
-                or self.match(TokenType.SEMICOLON) or self.match(TokenType.ARRAY) or self.match(TokenType.ID) or self.match(TokenType.ASSIGN) or self.match(TokenType.TRY)):
+                or self.match(TokenType.SEMICOLON) or self.match(TokenType.ARRAY) or self.match(TokenType.ID) or self.match(TokenType.ASSIGN)):
+                
+                # calling stmt
+                stmt_node = self.stmt()
+
                 # adding node to list
-                stmt_list.append(self.stmt())
+                stmt_list.append(stmt_node)
 
             # setting stmts param to built list
         try_node.catch_parts = stmt_list
         self.eat(TokenType.RBRACE, "Expecting }")
-
 
         return try_node
         

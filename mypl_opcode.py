@@ -58,5 +58,11 @@ OpCode = Enum('OpCode', [
 
     # special
     'DUP',     # pop x, push x, push x
-    'NOP'      # do nothing
+    'NOP',      # do nothing
+    'TRY_START', # flag to start try
+    'TRY_END',   # flag to end try
+    'CATCH_START', # flag to start catch
+    'CATCH_END',   # flag to end catch
+
+
 ])

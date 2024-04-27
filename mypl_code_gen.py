@@ -203,10 +203,12 @@ class CodeGenerator (Visitor):
         # pushing enviorment to accept stmts
         self.var_table.push_environment()
 
+        self.add_instr(TRY_START())
         # accepting statements
-        for stmt in try_stmt.try_part.stmts:
+        for stmt in try_stmt.try_part:
             stmt.accept(self)
-
+        
+        self.add_instr(TRY_END())
         # popping environment
         self.var_table.pop_environment()
 
@@ -214,10 +216,12 @@ class CodeGenerator (Visitor):
         # pushing enviorment to accept stmts
         self.var_table.push_environment()
 
+        self.add_instr(CATCH_START())
         # accepting statements
-        for stmt in try_stmt.catch_parts.stmts:
+        for stmt in try_stmt.catch_parts:
             stmt.accept(self)
 
+        self.add_instr(CATCH_END())
         # popping environment
         self.var_table.pop_environment()
     

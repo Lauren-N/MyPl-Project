@@ -1499,5 +1499,22 @@ def test_bad_null_to_string():
         vm.run()
     assert str(e.value).startswith('VM Error:')
 
-
     
+def test_try_start(capsys):
+    main = VMFrameTemplate('main', 0)
+    main.instructions.append(TRY_START())  
+    vm = VM()
+    vm.add_frame_template(main)
+    vm.run()
+    captured = capsys.readouterr()
+    assert captured.out == ''
+
+def test_try_start_end(capsys):
+    main = VMFrameTemplate('main', 0)
+    main.instructions.append(TRY_START())  
+    main.instructions.append(TRY_END())  
+    vm = VM()
+    vm.add_frame_template(main)
+    vm.run()
+    captured = capsys.readouterr()
+    assert captured.out == ''

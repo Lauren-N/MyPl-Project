@@ -1,7 +1,7 @@
 """
 Implementation of the MyPL Virtual Machine (VM).
 
-NAME: Lauren Nguyens
+NAME: Lauren Nguyen
 DATE: Spring 2024
 CLASS: CPSC 326
 
@@ -22,6 +22,8 @@ class VM:
         self.next_obj_id = 2024      # next available object id (int)
         self.frame_templates = {}    # function name -> VMFrameTemplate
         self.call_stack = []         # function call stack
+        self.try_flag = False        # flag to indicate we are in a try statement
+
 
     
     def __repr__(self):
@@ -85,7 +87,7 @@ class VM:
                 cs = self.call_stack
                 fun = cs[-1].template.function_name if cs else None
                 print('\t NEXT FUNCTION..:', fun)
-
+            # print(frame.operand_stack)
             #------------------------------------------------------------
             # Literals and Variables
             #------------------------------------------------------------
@@ -127,6 +129,8 @@ class VM:
                 y = frame.operand_stack.pop()
                 if y == None or x == None:
                     self.error("Cannot sub null values")
+                if (type(x) != int and type(x) != float) or (type(y) != int and type(y) != float):
+                    self.error("Cannot sub non int or double values")
                 instr.operand = y - x
                 frame.operand_stack.append(instr.operand)
 
@@ -136,6 +140,8 @@ class VM:
                 y = frame.operand_stack.pop()
                 if y == None or x == None:
                     self.error("Cannot mul null values")
+                if (type(x) != int and type(x) != float) or (type(y) != int and type(y) != float):
+                    self.error("Cannot mul non int or double values")
                 instr.operand = y * x
                 if type(x) == int and type(y) == int:
                     instr.operand = math.floor(instr.operand)
@@ -147,6 +153,8 @@ class VM:
                 y = frame.operand_stack.pop()
                 if y == None or x == None:
                     self.error("Cannot div null values")
+                if (type(x) != int and type(x) != float) or (type(y) != int and type(y) != float):
+                    self.error("Cannot div non int or double values")
                 if x == 0:
                     self.error("No division by 0")
                 instr.operand = y / x
@@ -160,7 +168,7 @@ class VM:
                 if y == None or x == None:
                     self.error("Cannot compare null values")
                 check = x and y
-                if check:
+                if check == True or check == 'true':
                     instr.operand = 'true'
                 else:
                     instr.operand = 'false'
@@ -172,7 +180,7 @@ class VM:
                 if y == None or x == None:
                     self.error("Cannot compare null values")
                 check = x or y
-                if check:
+                if check == True or check == 'true':
                     instr.operand = 'true'
                 else:
                     instr.operand = 'false'
@@ -195,7 +203,7 @@ class VM:
                 if y == None or x == None:
                     self.error("Cannot compare null values")
                 check = y < x
-                if check:
+                if check == True or check == 'true':
                     instr.operand = 'true'
                 else:
                     instr.operand = 'false'
@@ -207,7 +215,7 @@ class VM:
                 if y == None or x == None:
                     self.error("Cannot compare null values")
                 check = y <= x
-                if check:
+                if check == True or check == 'true':
                     instr.operand = 'true'
                 else:
                     instr.operand = 'false'
@@ -217,7 +225,7 @@ class VM:
                 x = frame.operand_stack.pop()
                 y = frame.operand_stack.pop()
                 check = y == x
-                if check:
+                if check == True or check == 'true':
                     instr.operand = 'true'
                 else:
                     instr.operand = 'false'
@@ -227,7 +235,7 @@ class VM:
                 x = frame.operand_stack.pop()
                 y = frame.operand_stack.pop()
                 check = y != x
-                if check:
+                if check == True or check == 'true':
                     instr.operand = 'true'
                 else:
                     instr.operand = 'false'
@@ -360,8 +368,8 @@ class VM:
             elif instr.opcode == OpCode.SETF:
                 a = instr.operand
                 x = frame.operand_stack.pop()
-                if x == None:
-                    self.error("Object location can not be null")
+                # if x == None:
+                #     self.error("Object location can not be null")
                 oid_y = frame.operand_stack.pop()
                 if oid_y == None:
                     self.error("Object location can not be null")
@@ -376,16 +384,17 @@ class VM:
                 self.struct_heap = obj
             
             elif instr.opcode == OpCode.GETF:
-                a = instr.operand
-                x_oid = frame.operand_stack.pop()
-                if x_oid == None:
+                oid = frame.operand_stack.pop()
+                if oid == None:
                     self.error("Object location can not be null")
                 
+                a = instr.operand
+
                 # creating copy of struct heap
-                value = self.struct_heap
+                obj = self.struct_heap
 
                 # appending field gotten to operand stack
-                frame.operand_stack.append(value[x_oid][a])
+                frame.operand_stack.append(obj[oid][a])
             
             elif instr.opcode == OpCode.ALLOCA:
                 # setting up new oid
@@ -445,11 +454,30 @@ class VM:
                 x = frame.operand_stack.pop()
                 if x == None:
                     x = 'null'
+                if type(x) == bool:
+                    if x == True or x == 'true':
+                        x = 'true'
+                    else:
+                        x = 'false'
                 print(x, end='')
             
             elif instr.opcode == OpCode.READ:
                 x = input()
                 frame.operand_stack.append(x)
+            
+            elif instr.opcode == OpCode.TRY_START:
+                self.try_flag = True
+            
+            elif instr.opcode == OpCode.TRY_END:
+                self.try_flag = False
+            
+            elif instr.opcode == OpCode.CATCH_START:
+                # do nothing
+                pass
+            
+            elif instr.opcode == OpCode.CATCH_END:
+                # do nothing
+                pass
 
             else:
                 self.error(f'unsupported operation {instr}')
