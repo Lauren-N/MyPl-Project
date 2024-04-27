@@ -303,7 +303,18 @@ class VM:
                     double_val = float(x)
                     frame.operand_stack.append(double_val)
                 except (TypeError, ValueError):
-                    self.error(f'Cant convert {x} to a double')
+                    if self.try_flag == True:
+                        # start_catch = None
+                        for i in range(0, len(template.instructions)):
+                            if template.instructions[i] == OpCode.CATCH_START:
+                                start_catch = template.instructions[i]
+                                break
+                            else:
+                                pass
+                        frame.pc = start_catch
+
+                    else:
+                        self.error(f'Cant convert {x} to a double')
             
             elif instr.opcode == OpCode.TOINT:
                 x = frame.operand_stack.pop()

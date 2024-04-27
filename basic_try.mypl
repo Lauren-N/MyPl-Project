@@ -1,7 +1,7 @@
 void main () {
 
     try {
-        int i = 0;
+        stod("abc");
     }
     catch{
         print("ERROR");
