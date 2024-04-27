@@ -229,10 +229,6 @@ class Lexer:
                 return Token(TokenType.WHILE, 'while', self.line, start_col)
             elif lex == 'try':
                 return Token(TokenType.TRY, 'try', self.line, start_col)
-            elif lex == 'as':
-                return Token(TokenType.AS, 'as', self.line, start_col)
-            elif lex == 'ZeroDivError':
-                return Token(TokenType.ZERODIV, 'ZeroDivError', self.line, start_col)
             elif lex == 'catch':
                 return Token(TokenType.CATCH, 'catch', self.line, start_col)
             elif lex == 'for':

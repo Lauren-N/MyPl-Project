@@ -6,7 +6,7 @@ void main () {
         }
         print("DONE");
     }
-    catch as ZeroDivError{
+    catch{
         print("ERROR");
     }
 }

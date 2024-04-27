@@ -4,12 +4,9 @@ void main () {
         if (true) {
             print("In if statement!");
             print("\n");
-
-            int c = 0 / 1;
         }
     }
-
-    catch as ZeroDivError{
+    catch{
         print("ERROR");
     }
 }

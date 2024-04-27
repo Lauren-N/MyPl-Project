@@ -424,9 +424,8 @@ def test_catch_with_for_type():
         '    int i = 3; \n'
         '    for (int i = 0; i < 5; i = i + 1) { \n'
         '    }'
-        '    result = 0 / 10; \n'
         '   }             \n'   
-        '  catch as ZeroDivError { print("ERROR"); } \n'
+        '  catch{ print("ERROR"); } \n'
         '} \n'
 
     ))
@@ -440,10 +439,10 @@ def test_catch_with_while_type():
         '    int i = 0; \n'
         '    int x = 1;'
         '    while(x < 3) { \n'
-        '       x = x / 1;'
+        '       x = x + 1;'
         '    }'
         '   }             \n'   
-        '  catch as ZeroDivError { print("ERROR"); } \n'
+        '  catch{ print("ERROR"); } \n'
         '} \n'
 
     ))
@@ -921,15 +920,15 @@ def test_else_try_with_no_catch():
     assert str(e.value).startswith('Parser Error')
 
 def test_else_catch_with_no_try():
-    in_stream = FileWrapper(io.StringIO('void f() { catch as ZeroDivError {}}'))
+    in_stream = FileWrapper(io.StringIO('void f() { catch {}}'))
     p = ASTParser(Lexer(in_stream))
     with pytest.raises(MyPLError) as e:
         p.parse()
     assert str(e.value).startswith('Parser Error')
 
 
-def test_else_catch_with_no_error_type():
-    in_stream = FileWrapper(io.StringIO('void f() { try {} catch {}}'))
+def test_else_catch_with_braces():
+    in_stream = FileWrapper(io.StringIO('void f() { try catch '))
     p = ASTParser(Lexer(in_stream))
     with pytest.raises(MyPLError) as e:
         p.parse()

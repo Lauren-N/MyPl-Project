@@ -1,13 +1,13 @@
-int t (int x, int y){
-    return x / y;
+int t (string x){
+    return stoi(x);
 }
 
 void main () {
     try {
-        print(t(0,1));
+        print(t("1"));
     }
 
-    catch as ZeroDivError{
+    catch{
         print("ERROR");
     }
 }

@@ -1,11 +1,9 @@
 
 void main (){
     try {
-        int i = 0;
-        int z = i / 1;
-        print("DONE");
+        double i = stod("abc");
     }
-    catch as ZeroDivError{
+    catch{
         print("ERROR");
     }
 }

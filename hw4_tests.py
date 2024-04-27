@@ -1468,29 +1468,17 @@ def test_good_while():
     ))
     ASTParser(Lexer(in_stream)).parse().accept(SemanticChecker())   
 
-def test_good_while():
+def test_try_while():
     in_stream = FileWrapper(io.StringIO(
         'void main() { \n'
         '  try {       \n'
         '    int result = 0; \n'
-        '    result = 0 / 10; \n'
         '}             \n'   
-        '  catch as ZeroDivError { print("ERROR"); } \n'
+        '  catch{ print("ERROR"); } \n'
         '} \n'
     ))
     ASTParser(Lexer(in_stream)).parse().accept(SemanticChecker())   
 
-def test_try_catch():
-    in_stream = FileWrapper(io.StringIO(
-        'void main() { \n'
-        '  try {       \n'
-        '    int result = 0; \n'
-        '    result = 0 / 10; \n'
-        '   }             \n'   
-        '  catch as ZeroDivError { print("ERROR"); } \n'
-        '} \n'
-    ))
-    ASTParser(Lexer(in_stream)).parse().accept(SemanticChecker())   
 
 
 def test_involved_try_catch():
@@ -1501,9 +1489,8 @@ def test_involved_try_catch():
         '    while (i < 3) { \n'
         '        i = i + 1; \n'
         '    }'
-        '    result = 0 / 10; \n'
         '   }             \n'   
-        '  catch as ZeroDivError { print("ERROR"); } \n'
+        '  catch { print("ERROR"); } \n'
         '} \n'
     ))
     ASTParser(Lexer(in_stream)).parse().accept(SemanticChecker())   
@@ -1511,18 +1498,6 @@ def test_involved_try_catch():
 
 # NEGATIVE
 
-# def test_try_catch_error():
-#     in_stream = FileWrapper(io.StringIO(
-#         'void main() { \n'
-#         '  try {       \n'
-#         '    int y = "hi"; \n'
-#         '   }             \n'   
-#         '  catch as ZeroDivError { print("ERROR"); } \n'
-#         '} \n'
-#     ))
-#     with pytest.raises(MyPLError) as e:
-#         ASTParser(Lexer(in_stream)).parse().accept(SemanticChecker())
-#     assert str(e.value).startswith('Static Error:')
 
 
 def test_bad_return_type():

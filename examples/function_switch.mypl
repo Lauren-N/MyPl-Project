@@ -5,7 +5,7 @@ void f (){
         int i = 0;
         print("DONE");
     }
-    catch as ZeroDivError{
+    catch{
         print("ERROR");
     }
 

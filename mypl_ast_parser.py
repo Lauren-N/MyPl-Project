@@ -697,8 +697,6 @@ class ASTParser:
         self.eat(TokenType.RBRACE, "Expecting }")
 
         self.eat(TokenType.CATCH, "Expecting catch block")
-        self.eat(TokenType.AS, "Expecting as")
-        self.eat(TokenType.ZERODIV, 'Expecting error type to expect')
 
         self.eat(TokenType.LBRACE, "Expecting {")
         

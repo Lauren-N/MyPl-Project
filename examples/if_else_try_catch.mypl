@@ -2,14 +2,14 @@
 void main () {
     try {
         if (true) {
-            int a = 0 / 1;
+            int a = stoi("2");
         }
         else{
             print("Not supposed to be here");
         }
     }
 
-    catch as ZeroDivError{
+    catch{
         print("ERROR");
     }
 }
