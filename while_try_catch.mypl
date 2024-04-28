@@ -2,10 +2,13 @@ void main () {
 
     try {
         int i = 0;
+        string z = "a";
         while (i < 3){
+            z = z + "c";
             i = i + 1;
         }
         print("DONE");
+        stod("1.0");
     }
     catch{
         print("ERROR");

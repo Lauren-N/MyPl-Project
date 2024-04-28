@@ -1,9 +1,10 @@
+void main () {
 
-void main (){
     try {
-        double i = stod("abc");
+        stod("abc");
     }
     catch{
         print("ERROR");
     }
+
 }
