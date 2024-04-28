@@ -302,16 +302,27 @@ class VM:
                 try:
                     double_val = float(x)
                     frame.operand_stack.append(double_val)
-                except (TypeError, ValueError):
                     if self.try_flag == True:
-                        # start_catch = None
-                        for i in range(0, len(template.instructions)):
-                            if template.instructions[i] == OpCode.CATCH_START:
-                                start_catch = template.instructions[i]
+                        instruction_len = len(frame.template.instructions)
+                        jump_catch = 0
+                        for i in range(frame.pc, instruction_len):
+                            if frame.template.instructions[i] == CATCH_END():
+                                jump_catch = i
                                 break
                             else:
                                 pass
-                        frame.pc = start_catch
+                        frame.pc = jump_catch
+                except (TypeError, ValueError):
+                    if self.try_flag == True:
+                        instruction_len = len(frame.template.instructions)
+                        jump_catch = 0
+                        for i in range(frame.pc, instruction_len):
+                            if frame.template.instructions[i] == CATCH_START():
+                                jump_catch = i
+                                break
+                            else:
+                                pass
+                        frame.pc = jump_catch
 
                     else:
                         self.error(f'Cant convert {x} to a double')
