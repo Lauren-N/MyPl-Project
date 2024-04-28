@@ -332,8 +332,27 @@ class VM:
                 try:
                     int_val = int(x)
                     frame.operand_stack.append(int_val)
+                    if self.try_flag == True:
+                        instruction_len = len(frame.template.instructions)
+                        jump_catch = 0
+                        for i in range(frame.pc, instruction_len):
+                            if frame.template.instructions[i] == CATCH_END():
+                                jump_catch = i
+                                break
+                            else:
+                                pass
+                        frame.pc = jump_catch
                 except (TypeError, ValueError):
-                    self.error(f'Cant convert {x} to a int')
+                    if self.try_flag == True:
+                        instruction_len = len(frame.template.instructions)
+                        jump_catch = 0
+                        for i in range(frame.pc, instruction_len):
+                            if frame.template.instructions[i] == CATCH_START():
+                                jump_catch = i
+                                break
+                            else:
+                                pass
+                        frame.pc = jump_catch
             
             elif instr.opcode == OpCode.TOSTR:
                 x = frame.operand_stack.pop()

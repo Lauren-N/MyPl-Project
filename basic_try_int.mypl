@@ -1,0 +1,10 @@
+void main () {
+
+    try {
+        stoi("1");
+    }
+    catch{
+        print("ERROR");
+    }
+
+}
