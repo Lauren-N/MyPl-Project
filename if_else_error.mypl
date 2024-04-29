@@ -1,0 +1,16 @@
+// This file is to test the if else structure within a try catch block, it should produce an error and output ERROR
+
+void main () {
+    try {
+        if (false) {
+            int a = stoi("2");
+        }
+        else{
+            int a = stoi("abc");
+        }
+    }
+
+    catch{
+        print("ERROR");
+    }
+}

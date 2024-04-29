@@ -1,3 +1,5 @@
+// The purpose of this file is to test a basic form of the Try Except, it should produce an error and output "ERROR""
+
 void main () {
 
     try {

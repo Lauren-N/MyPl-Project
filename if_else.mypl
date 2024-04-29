@@ -1,3 +1,4 @@
+// This file is to test the if else structure within a try catch block, it should not produce an error and output nothing
 
 void main () {
     try {
@@ -5,7 +6,7 @@ void main () {
             int a = stoi("2");
         }
         else{
-            print("Not supposed to be here");
+            int a = stoi("abc");
         }
     }
 
