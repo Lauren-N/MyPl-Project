@@ -4,6 +4,7 @@ void main () {
 
     try {
         stoi("1");
+        print("hi");
     }
     catch{
         print("ERROR");

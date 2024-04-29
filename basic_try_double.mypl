@@ -4,6 +4,7 @@ void main () {
 
     try {
         stod("1.0");
+        print("hi");
     }
     catch{
         print("ERROR");

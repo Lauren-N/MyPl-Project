@@ -1518,3 +1518,22 @@ def test_try_start_end(capsys):
     vm.run()
     captured = capsys.readouterr()
     assert captured.out == ''
+
+def test_catch_start(capsys):
+    main = VMFrameTemplate('main', 0)
+    main.instructions.append(CATCH_START())  
+    vm = VM()
+    vm.add_frame_template(main)
+    vm.run()
+    captured = capsys.readouterr()
+    assert captured.out == ''
+
+def test_catch_start_end(capsys):
+    main = VMFrameTemplate('main', 0)
+    main.instructions.append(CATCH_START())  
+    main.instructions.append(CATCH_END())  
+    vm = VM()
+    vm.add_frame_template(main)
+    vm.run()
+    captured = capsys.readouterr()
+    assert captured.out == ''

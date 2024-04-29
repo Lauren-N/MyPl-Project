@@ -302,16 +302,6 @@ class VM:
                 try:
                     double_val = float(x)
                     frame.operand_stack.append(double_val)
-                    if self.try_flag == True:
-                        instruction_len = len(frame.template.instructions)
-                        jump_catch = 0
-                        for i in range(frame.pc, instruction_len):
-                            if frame.template.instructions[i] == CATCH_END():
-                                jump_catch = i
-                                break
-                            else:
-                                pass
-                        frame.pc = jump_catch
                 except (TypeError, ValueError):
                     if self.try_flag == True:
                         instruction_len = len(frame.template.instructions)
@@ -332,16 +322,6 @@ class VM:
                 try:
                     int_val = int(x)
                     frame.operand_stack.append(int_val)
-                    if self.try_flag == True:
-                        instruction_len = len(frame.template.instructions)
-                        jump_catch = 0
-                        for i in range(frame.pc, instruction_len):
-                            if frame.template.instructions[i] == CATCH_END():
-                                jump_catch = i
-                                break
-                            else:
-                                pass
-                        frame.pc = jump_catch
                 except (TypeError, ValueError):
                     if self.try_flag == True:
                         instruction_len = len(frame.template.instructions)
@@ -353,6 +333,8 @@ class VM:
                             else:
                                 pass
                         frame.pc = jump_catch
+                    else:
+                        self.error(f'Cant convert {x} to int')
             
             elif instr.opcode == OpCode.TOSTR:
                 x = frame.operand_stack.pop()
@@ -507,14 +489,21 @@ class VM:
                 frame.operand_stack.append(x)
             
             elif instr.opcode == OpCode.TRY_START:
+                # set flag true to let program know we are in a try statement
                 self.try_flag = True
             
             elif instr.opcode == OpCode.TRY_END:
+                # set flag false to let program know we out of a try statement
                 self.try_flag = False
             
             elif instr.opcode == OpCode.CATCH_START:
-                # do nothing
-                pass
+                if self.try_flag == True:
+                    pass
+                else:
+                    for i in range(frame.pc, len(frame.template.instructions)):
+                        if frame.template.instructions[i] == CATCH_END():
+                            frame.pc = i
+                            break
             
             elif instr.opcode == OpCode.CATCH_END:
                 # do nothing
