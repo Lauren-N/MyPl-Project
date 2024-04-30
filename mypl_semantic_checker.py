@@ -18,7 +18,7 @@ BUILT_INS = ['print', 'input', 'itos', 'itod', 'dtos', 'dtoi', 'stoi', 'stod',
              'length', 'get']
 CONDITIONAL_NON_BOOL_RHS_LHS = ['<', '>', '<=', '>=', '==', '!=']
 CONDITIONAL_BOOL_RHS_LHS = ['<', '>', '<=', '>=']
-OPERATORS_NO_PLUS = ['-', '*']
+OPERATORS_NO_PLUS = ['-', '*', '/']
 COMPAIRSON_OPERATORS = ['and', 'or']
 
 class SemanticChecker(Visitor):
@@ -275,7 +275,7 @@ class SemanticChecker(Visitor):
         
     def visit_assign_stmt(self, assign_stmt):
         # checking use before def
-        if not (self.symbol_table.exists_in_curr_env(assign_stmt.lvalue[0].var_name.lexeme)):
+        if not (self.symbol_table.exists(assign_stmt.lvalue[0].var_name.lexeme)) and (assign_stmt.lvalue[0].var_name.lexeme not in self.structs):
             self.error("Use before def in this enviornment", None)
 
         # finding variable information for left side in the symbol table
@@ -373,24 +373,6 @@ class SemanticChecker(Visitor):
         
         
         self.symbol_table.pop_environment()
-
-    def visit_try_catch(self, try_stmt):
-        self.symbol_table.push_enviornment()
-
-        self.symbol_table.push_environment()
-        for stmt in try_stmt.try_part.stmts:
-            stmt.accept(self)
-            print(stmt)
-        self.symbol_table.pop_environment()
-
-        self.symbol_table.push_environment()
-        for stmt in try_stmt.catch_parts.stmts:
-            stmt.accept(self)
-        self.symbol_table.pop_environment()
-
-        self.symbol_table.pop_enviornment()
-
-
         
         
 
@@ -492,8 +474,11 @@ class SemanticChecker(Visitor):
         if if_stmt.else_stmts:
             self.symbol_table.push_environment
             # Visit the else statements, if any
+            self.symbol_table.push_environment()
             for stmt in if_stmt.else_stmts:
                 stmt.accept(self)
+            self.symbol_table.pop_environment()
+            
             self.symbol_table.pop_environment()
             
         
@@ -740,16 +725,6 @@ class SemanticChecker(Visitor):
                     self.curr_type = DataType(False, Token(TokenType.STRING_TYPE, 'string', rhs_type.type_name.line, rhs_type.type_name.column))
 
                 elif lhs_type.type_name.lexeme == 'double' and rhs_type.type_name.lexeme == 'double':
-                    self.curr_type = DataType(False, Token(TokenType.DOUBLE_TYPE, 'double', rhs_type.type_name.line, rhs_type.type_name.column))
-
-                elif lhs_type.type_name.lexeme == 'int' and rhs_type.type_name.lexeme == 'int':
-                    self.curr_type = DataType(False, Token(TokenType.INT_TYPE, 'int', rhs_type.type_name.line, rhs_type.type_name.column))
-                else:
-                    self.error("Incorrect datatype for operator", expr.op)
-
-            if expr.op.lexeme == '/':
-
-                if lhs_type.type_name.lexeme == 'double' and rhs_type.type_name.lexeme == 'double':
                     self.curr_type = DataType(False, Token(TokenType.DOUBLE_TYPE, 'double', rhs_type.type_name.line, rhs_type.type_name.column))
 
                 elif lhs_type.type_name.lexeme == 'int' and rhs_type.type_name.lexeme == 'int':
