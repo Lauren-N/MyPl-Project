@@ -6,6 +6,7 @@ void main() {
     try {
         T t = new T("1.0");
         double x = stod(t.x);
+        print(x);
     }
     catch{
         print("ERROR");

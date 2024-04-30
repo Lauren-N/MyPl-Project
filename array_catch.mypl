@@ -1,7 +1,9 @@
 void main() {
     try {
         array string x1 = new int[5];
-        x1[0] = "1.0';
+        x1[0] = "1";
+        int i = stoi(x1[0]);
+        print(i);
     }
     catch{
         print("ERROR");
