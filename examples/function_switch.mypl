@@ -1,8 +1,11 @@
-
+// the purpose of this file is to try test switching between functions in my try catch to ensure my frame and scope is accurate.
+// in this case, I test my try in my f function by calling it in my main function. I send in a valid string and it should print "32.0" and "DONE"
 
 void f (){
     try {
-        int i = 0;
+        string i = "32.0";
+        print(stod(i));
+        print("\n");
         print("DONE");
     }
     catch{

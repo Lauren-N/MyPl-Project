@@ -1,3 +1,6 @@
+// the purpose of this file is to work with a more complicated data structure: structs. I instantiate my struct in my try and then intialize it with a valid string
+// I then get the field from the declared struct object and try to convert the value at field x into a double, in this case it should work and print "1.0".
+
 struct T {
     string x;
 }

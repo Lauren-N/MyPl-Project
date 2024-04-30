@@ -1,3 +1,7 @@
+// the purpose of this file is to try test switching between functions in my try catch to ensure my frame and scope is accurate.
+// in this case, I test my try in my main function by calling t which a function I declared that just returns the stoi() of its param
+// I send in "1" into the function so it should be valid and print "1"
+
 int t (string x){
     return stoi(x);
 }

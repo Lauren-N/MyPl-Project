@@ -1,8 +1,11 @@
+// In this file I test for loops in my try blocks. It should print "In for loop..." 5 times then print DONE
+
 void main () {
 
     try {
         for (int i = 0; i < 5; i = i + 1){
             print("In for loop... ");
+            print("\n");
         }
         print("DONE");
     }
