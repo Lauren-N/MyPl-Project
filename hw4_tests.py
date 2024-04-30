@@ -1468,7 +1468,7 @@ def test_good_while():
     ))
     ASTParser(Lexer(in_stream)).parse().accept(SemanticChecker())   
 
-def test_try_while():
+def test_try():
     in_stream = FileWrapper(io.StringIO(
         'void main() { \n'
         '  try {       \n'

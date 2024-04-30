@@ -927,10 +927,16 @@ def test_else_catch_with_no_try():
     assert str(e.value).startswith('Parser Error')
 
 
-def test_else_catch_with_braces():
-    in_stream = FileWrapper(io.StringIO('void f() { try catch '))
+def test_else_catch_with_no_braces():
+    in_stream = FileWrapper(io.StringIO('void f() { try catch }'))
     p = ASTParser(Lexer(in_stream))
     with pytest.raises(MyPLError) as e:
         p.parse()
     assert str(e.value).startswith('Parser Error')
 
+def test_else_catch_with_semicolon():
+    in_stream = FileWrapper(io.StringIO('void f() { try{;} catch {;} }'))
+    p = ASTParser(Lexer(in_stream))
+    with pytest.raises(MyPLError) as e:
+        p.parse()
+    assert str(e.value).startswith('Parser Error')

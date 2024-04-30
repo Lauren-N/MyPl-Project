@@ -1142,14 +1142,55 @@ def test_string_get(capsys):
     build(program).run()
     captured = capsys.readouterr()
     print(captured.out)
-    assert captured.out == 'b l u e g r e e n '
-    
+    assert captured.out == 'b l u e g r e e n ' 
 
 
-#----------------------------------------------------------------------
-# TODO: Add at least 10 of your own tests below. Half of the tests
-# should be positive tests, and half should be negative. Focus on
-# trickier parts of your code (e.g., rvalues, lvalues, new rvalues)
-# looking for places in your code that are not tested by the above.
-#----------------------------------------------------------------------
+def test_basic_try(capsys):
+    program = (
+        'void main() { \n'
+        '  try { \n'
+        '    print("hi from try!"); \n'
+        '  } \n'
+        '  catch { \n'
+        '    print("ERROR"); \n'
+        '  }\n'
+        '} \n'
+    )
+    build(program).run()
+    captured = capsys.readouterr()
+    print(captured.out)
+    assert captured.out == 'hi from try!'
 
+def test_more_involved_try(capsys):
+    program = (
+        'void main() { \n'
+        '  try { \n'
+        '    array int k = new int[2]; \n'
+        '    k[0] = 23; \n'
+        '    print(itos(k[0])); \n'
+        '  } \n'
+        '  catch { \n'
+        '    print("ERROR"); \n'
+        '  }\n'
+        '} \n'
+    )
+    build(program).run()
+    captured = capsys.readouterr()
+    print(captured.out)
+    assert captured.out == '23'
+
+def test_stoi_try_error(capsys):
+    program = (
+        'void main() { \n'
+        '  try { \n'
+        '    print(stoi("abc"));'
+        '  } \n'
+        '  catch { \n'
+        '    print("ERROR"); \n'
+        '  }\n'
+        '} \n'
+    )
+    build(program).run()
+    captured = capsys.readouterr()
+    print(captured.out)
+    assert captured.out == 'ERROR'
