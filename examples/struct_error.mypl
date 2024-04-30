@@ -1,0 +1,14 @@
+struct T {
+    string x;
+}
+
+void main() {
+    try {
+        T t = new T("abc");
+        double x = stoi(t.x);
+        print(x);
+    }
+    catch{
+        print("ERROR");
+    }
+}

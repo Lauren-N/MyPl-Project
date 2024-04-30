@@ -391,8 +391,7 @@ class VM:
             elif instr.opcode == OpCode.SETF:
                 a = instr.operand
                 x = frame.operand_stack.pop()
-                # if x == None:
-                #     self.error("Object location can not be null")
+
                 oid_y = frame.operand_stack.pop()
                 if oid_y == None:
                     self.error("Object location can not be null")
@@ -428,6 +427,7 @@ class VM:
                 array_length = frame.operand_stack.pop()
                 if array_length == None or array_length < 0:
                     self.error("Appropriate Array Length must be defined")
+
                 # ... check for valid array length value ...
                 self.array_heap[oid] = [None for _ in range (array_length)]
                 frame.operand_stack.append(oid)
@@ -438,8 +438,10 @@ class VM:
                 z_oid = frame.operand_stack.pop()
                 if x_val == None or y_index == None or z_oid == None:
                     self.error("Incorrect array set syntax")
+
                 if type(y_index) != int:
                     self.error("Array index must equal integer")
+
                 if y_index < 0 or y_index >= len(self.array_heap[z_oid]):
                     self.error("Out of bound array indexing")
 
@@ -497,8 +499,10 @@ class VM:
                 self.try_flag = False
             
             elif instr.opcode == OpCode.CATCH_START:
+                # if we are still in the try stmt, pass
                 if self.try_flag == True:
                     pass
+                # try stmt is over, now jump over the catch stmt
                 else:
                     for i in range(frame.pc, len(frame.template.instructions)):
                         if frame.template.instructions[i] == CATCH_END():

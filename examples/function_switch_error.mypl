@@ -1,0 +1,15 @@
+void f (){
+    try {
+        stoi("abc");
+    }
+    catch{
+        print("ERROR");
+    }
+
+}
+
+
+
+void main () {
+    f();
+}

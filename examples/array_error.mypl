@@ -1,0 +1,11 @@
+void main() {
+    try {
+        array string x1 = new int[5];
+        x1[0] = "Hello";
+        int i = stoi(x1[0]);
+        print(i);
+    }
+    catch{
+        print("ERROR");
+    }
+}
