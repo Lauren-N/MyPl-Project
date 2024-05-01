@@ -1,15 +1,14 @@
 // The purpose of this file is to check code running before any runtime errors in my try catch
-// should output 2 2
+// should output ERROR
 
 void main (){
     try {
         int i = 0;
+        string s = "a";
         while(i < 2){
             i = i + 1;
+            s = s + "b";
         }
-        string s = itos(i);
-        print(s);
-        print("\n");
         print(stoi(s));
     }
     catch {

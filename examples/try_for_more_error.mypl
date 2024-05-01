@@ -1,0 +1,15 @@
+// The purpose of this file is to check code running before any runtime errors in my try catch
+// should output ERROR
+
+void main (){
+    try {
+    string sum = "z";
+    for(int i = 0; i < 2; i = i + 1){
+        sum = sum + "z";
+    }
+    print(stoi(sum));
+    }
+    catch {
+        print("ERROR");
+    }
+}

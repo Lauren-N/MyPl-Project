@@ -303,15 +303,20 @@ class VM:
                     double_val = float(x)
                     frame.operand_stack.append(double_val)
                 except (TypeError, ValueError):
+                    # if we are in a try, handle accordingly to jump over to catch start
                     if self.try_flag == True:
                         instruction_len = len(frame.template.instructions)
                         jump_catch = 0
+
+                        # iterating over instructions till we find the catch start
                         for i in range(frame.pc, instruction_len):
                             if frame.template.instructions[i] == CATCH_START():
                                 jump_catch = i
                                 break
                             else:
                                 pass
+                        
+                        # jumping to catch start
                         frame.pc = jump_catch
 
                     else:
@@ -323,15 +328,20 @@ class VM:
                     int_val = int(x)
                     frame.operand_stack.append(int_val)
                 except (TypeError, ValueError):
+                    # if we are in a try, handle accordingly to jump over to catch start
                     if self.try_flag == True:
                         instruction_len = len(frame.template.instructions)
                         jump_catch = 0
+
+                        # iterating over instructions till we find the catch start
                         for i in range(frame.pc, instruction_len):
                             if frame.template.instructions[i] == CATCH_START():
                                 jump_catch = i
                                 break
                             else:
                                 pass
+
+                        # jumping to catch start
                         frame.pc = jump_catch
                     else:
                         self.error(f'Cant convert {x} to int')

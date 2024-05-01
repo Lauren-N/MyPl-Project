@@ -679,9 +679,12 @@ class ASTParser:
             return else_if_list
         
     def try_stmt(self):
+        # creating try node to return
         try_node = TryCatchStmt(None, None)
+
         self.eat(TokenType.TRY, "Expecting Try")
         self.eat(TokenType.LBRACE, "Expecting {")
+
         # list to hold stmt nodes
         stmt_list = []
 
@@ -689,18 +692,21 @@ class ASTParser:
         while(self.match(TokenType.WHILE) or self.match(TokenType.IF) or self.match(TokenType.FOR) or self.match(TokenType.RETURN)
                 or self.match(TokenType.INT_TYPE) or self.match(TokenType.DOUBLE_TYPE) or self.match(TokenType.STRING_TYPE) or self.match(TokenType.BOOL_TYPE) 
                 or self.match(TokenType.SEMICOLON) or self.match(TokenType.ARRAY) or self.match(TokenType.ID) or self.match(TokenType.ASSIGN) or self.match(TokenType.TRY)):
-                # adding node to list
+                
+                # calling stmt()
                 stmt_node = self.stmt()
+                
+                # appending node to list
                 stmt_list.append(stmt_node)
 
         # setting stmts param to built list
         try_node.try_part = stmt_list
+
         self.eat(TokenType.RBRACE, "Expecting }")
-
         self.eat(TokenType.CATCH, "Expecting catch block")
-
         self.eat(TokenType.LBRACE, "Expecting {")
         
+        # list to hold stmt nodes
         stmt_list = []
         # checking for tokens starting with stmts
         while(self.match(TokenType.WHILE) or self.match(TokenType.IF) or self.match(TokenType.FOR) or self.match(TokenType.RETURN)
@@ -713,10 +719,11 @@ class ASTParser:
                 # adding node to list
                 stmt_list.append(stmt_node)
 
-            # setting stmts param to built list
+        # setting stmts param to built list
         try_node.catch_parts = stmt_list
         self.eat(TokenType.RBRACE, "Expecting }")
 
+        # returning try
         return try_node
         
 

@@ -1,4 +1,8 @@
+// The purpose of this file is to check code running before any runtime errors in my try catch
+// should output 2 2
+
 void main (){
+    try {
     int sum = 0;
     for(int i = 0; i < 2; i = i + 1){
         sum = sum + 1;
@@ -7,4 +11,8 @@ void main (){
     print(s);
     print("\n");
     print(stoi(s));
+    }
+    catch {
+        print("ERROR");
+    }
 }
