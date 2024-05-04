@@ -453,6 +453,7 @@ class VM:
                     self.error("Array index must equal integer")
 
                 if y_index < 0 or y_index >= len(self.array_heap[z_oid]):
+                    # checking if we are in a try statement to handle things differently
                     if self.try_flag == True:
                         instruction_len = len(frame.template.instructions)
                         jump_catch = 0
@@ -478,6 +479,7 @@ class VM:
                 if x_index == None or y_oid == None:
                     self.error("Incorrect array set syntax")
                 if x_index < 0 or x_index >= len(self.array_heap[y_oid]):
+                    # checking if we are in a try statement to handle things differently
                     if self.try_flag == True:
                         instruction_len = len(frame.template.instructions)
                         jump_catch = 0
