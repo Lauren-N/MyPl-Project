@@ -453,10 +453,24 @@ class VM:
                     self.error("Array index must equal integer")
 
                 if y_index < 0 or y_index >= len(self.array_heap[z_oid]):
-                    self.error("Out of bound array indexing")
+                    if self.try_flag == True:
+                        instruction_len = len(frame.template.instructions)
+                        jump_catch = 0
 
-                # setting array in array heap at z oid and y index to x_val from operand stack
-                self.array_heap[z_oid][y_index] = x_val
+                        # iterating over instructions till we find the catch start
+                        for i in range(frame.pc, instruction_len):
+                            if frame.template.instructions[i] == CATCH_START():
+                                jump_catch = i
+                                break
+                            else:
+                                pass
+
+                        # jumping to catch start
+                        frame.pc = jump_catch
+                    else:
+                        self.error("Out of bound array indexing")
+                else:
+                    self.array_heap[z_oid][y_index] = x_val
             
             elif instr.opcode == OpCode.GETI:
                 x_index = frame.operand_stack.pop()
@@ -464,13 +478,28 @@ class VM:
                 if x_index == None or y_oid == None:
                     self.error("Incorrect array set syntax")
                 if x_index < 0 or x_index >= len(self.array_heap[y_oid]):
-                    self.error("Out of bound array indexing")
+                    if self.try_flag == True:
+                        instruction_len = len(frame.template.instructions)
+                        jump_catch = 0
 
-                # getting value from array at oid at x index
-                value = self.array_heap[y_oid][x_index]
+                        # iterating over instructions till we find the catch start
+                        for i in range(frame.pc, instruction_len):
+                            if frame.template.instructions[i] == CATCH_START():
+                                jump_catch = i
+                                break
+                            else:
+                                pass
 
-                # appending to opperand stack
-                frame.operand_stack.append(value)
+                        # jumping to catch start
+                        frame.pc = jump_catch
+                    else:
+                        self.error("Out of bound array indexing")
+                else:
+                    # getting value from array at oid at x index
+                    value = self.array_heap[y_oid][x_index]
+
+                    # appending to opperand stack
+                    frame.operand_stack.append(value)
             
             #------------------------------------------------------------
             # Special 
