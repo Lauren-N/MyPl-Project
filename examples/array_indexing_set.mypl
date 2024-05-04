@@ -1,0 +1,13 @@
+// the purpose of this file is to work with a more complicated data type: arrays. I declare my array in my try and then intialize it with a valid string
+// I then index into the array to try to convert the value at index 0 into a Integer, in this case it should work and print "1".
+
+void main() {
+    try {
+        array string x1 = new int[5];
+        x1[2] = 2;
+        print(x1[2]);
+    }
+    catch{
+        print("ERROR");
+    }
+}
