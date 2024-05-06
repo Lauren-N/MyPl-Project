@@ -1,5 +1,4 @@
 Name: Lauren Nguyen
-Course: CPSC326 Section 01
 
 This repository contains my final project for CPSC326. In this repo, I had extended myPl to have Try-Catch blocks to handle runtime
 errors for users like overindexing arrays, invalid string --> ints, or invalid string --> doubles.
