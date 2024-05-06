@@ -4,7 +4,7 @@ Course: CPSC326 Section 01
 This repository contains my final project for CPSC326. In this repo, I had extended myPl to have Try-Catch blocks to handle runtime
 errors for users like overindexing arrays, invalid string --> ints, or invalid string --> doubles.
 
-Link to Presentation:
+Link to Presentation: https://youtu.be/ANwZKE_27A8?si=MB7_3tVnk6HTE5zq
 
 Instructions to run files in example folder:
 1. ensure you are in the correct path for the repo in your terminal
