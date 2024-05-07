@@ -3,7 +3,7 @@
 
 void main() {
     try {
-        array string x1 = new int[5];
+        array string x1 = new string[5];
         print(x1[10]);
     }
     catch{

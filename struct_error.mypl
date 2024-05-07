@@ -8,7 +8,7 @@ struct T {
 void main() {
     try {
         T t = new T("abc");
-        double x = stoi(t.x);
+        double x = stod(t.x);
         print(x);
     }
     catch{
